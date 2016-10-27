@@ -7,6 +7,11 @@ public class Path {
     private City adjacent;
     private int distance;
 
+    public Path(City city, int distance) {
+        adjacent = city;
+        this.distance = distance;
+    }
+
     public City getAdjacent() {
         return adjacent;
     }

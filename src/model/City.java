@@ -1,11 +1,13 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mgunes on 26.10.2016.
  */
 public class City {
+    public static int distanceMatrix[][] = new int[100][100];
     private final int id;
     private int x_coor;
     private int y_coor;
@@ -13,6 +15,7 @@ public class City {
 
     public City(int id) {
         this.id = id;
+        paths = new ArrayList<Path>();
     }
 
     public int getId() {
