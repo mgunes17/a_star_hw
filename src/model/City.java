@@ -1,7 +1,10 @@
 package model;
 
+import algorithm.CityAlgorithm;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by mgunes on 26.10.2016.
@@ -18,6 +21,18 @@ public class City {
         paths = new ArrayList<Path>();
     }
 
+    //tüm yollara %10 %50 aralığında ekleme yapar
+    public void findRealPath() {
+        Random r = new Random();
+        int distance = 0;
+
+        for(Path path: paths) {
+            distance = path.getDistance() + (path.getDistance() * (r.nextInt(5) + 1)) / 10;
+            path.setDistance(distance);
+        }
+    }
+
+    //getter-setter
     public int getId() {
         return id;
     }

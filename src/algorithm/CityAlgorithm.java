@@ -1,6 +1,7 @@
 package algorithm;
 
 import model.City;
+import model.Path;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import static java.lang.Math.sqrt;
 
 /**
  * Created by mgunes on 26.10.2016.
+ *
+ * Şehir koordinatlarının ve yollarının üretilmesi işlemleri
  */
 public class CityAlgorithm {
     private int cityCount;
@@ -38,18 +41,35 @@ public class CityAlgorithm {
         Random r = new Random();
 
         do {
-            x = r.nextInt(900);
-            y = r.nextInt(900);
+            x = r.nextInt(500);
+            y = r.nextInt(500);
         } while(!isPossible(x, y));
 
         city.setX_coor(x);
         city.setY_coor(y);
     }
 
+    //5 birimlik çevrede 2 şehrin olmaması için yapılan kontrol
     public boolean isPossible(int x, int y) {
-        return true;
+        int i = 0;
+        boolean isExist = false;
+        City city = new City(0);
+        city.setX_coor(x);
+        city.setY_coor(y);
+
+        while(i < map.size() && isExist == false) {
+            if(eucledianDistance(map.get(i), city) < 10 )
+                isExist  = true;
+            i++;
+        }
+
+        if(isExist == true)
+            return false;
+        else
+            return true;
     }
 
+    //tüm şehirlerin birbirine uzaklığını gösteren matrisin hesaplanması
     public void evaluateDistances() {
         int distance;
 
@@ -61,10 +81,44 @@ public class CityAlgorithm {
         }
     }
 
+    //iki şehir arasındaki öklid uzaklığının hesaplanması
     public int eucledianDistance(City a, City b) {
         return (int) Math.sqrt(
                 Math.pow((a.getX_coor() - b.getX_coor()),2) +
                 Math.pow((a.getY_coor() - b.getY_coor()),2)
         );
+    }
+
+    //rastgele yollar üretilmesi
+    public List<City> generateRandomPath(int pathCount) {
+        Random r = new Random();
+        int city1, city2;
+
+        for(int i = 0; i < pathCount; i++) {
+
+            //yol üretilecek 2 şehrin belirlenmesi
+            do {
+                city1 = r.nextInt(cityCount);
+                city2 = r.nextInt(cityCount);
+            } while(city1 == city2);
+
+            int distance = City.distanceMatrix[city1][city2];
+            map.get(city1).getPaths().add(new Path(map.get(city2), distance));
+            map.get(city2).getPaths().add(new Path(map.get(city1), distance));
+        }
+
+        return map;
+    }
+
+    public List<City> updatePaths() {
+        for(City city: map) {
+            city.findRealPath();
+        }
+
+        return map;
+    }
+
+    public void setMap(List<City> map) {
+        this.map = map;
     }
 }

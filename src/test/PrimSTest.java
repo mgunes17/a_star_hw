@@ -1,5 +1,7 @@
-package algorithm;
+package test;
 
+import algorithm.CityAlgorithm;
+import algorithm.PrimS;
 import model.City;
 
 import java.util.ArrayList;

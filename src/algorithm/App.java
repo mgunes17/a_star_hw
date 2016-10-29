@@ -1,6 +1,7 @@
 package algorithm;
 
 import model.City;
+import model.State;
 import view.AppWindow;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.util.List;
 public class App extends JFrame {
 
     public static void main(String args[]) {
-        CityAlgorithm cityAlgorithm = new CityAlgorithm(100);
+        CityAlgorithm cityAlgorithm = new CityAlgorithm(10);
 
         List<City> map = new ArrayList<City>();
         map = cityAlgorithm.createCities();
@@ -26,20 +27,33 @@ public class App extends JFrame {
         prim.minimumSpanningTree();
 
         AppWindow appWindow = new AppWindow(map);
-        //appWindow.paint(null);
 
-        for(City city: map) {
-            appWindow.paint(null);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        //to-do
-        /*
-            ekrana sol panel yap
-            her yeni görüntü için button olsun
-            uygulamaya ait genel bilgileri orda yazdır
-            mst yi çalıştır
-            50 tane de rastgele yol üret
-            ekranda göster
-         */
+        map = cityAlgorithm.generateRandomPath(2);
+
+        //yollara %10-%50 aralığında ekleme yap
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        map = cityAlgorithm.updatePaths();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        AStar astar = new AStar(map, 2, 5);
+        State state = astar.algorithm();
+        System.out.println(astar.getPolledCount());
+
     }
 }
