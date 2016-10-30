@@ -54,7 +54,7 @@ public class CityAlgorithmTest {
         cityAlgorithm.setMap(map);
 
         assertEquals(false, cityAlgorithm.isPossible(15, 15));
-        assertEquals(true, cityAlgorithm.isPossible(20, 20));
+        assertEquals(true, cityAlgorithm.isPossible(70, 70));
     }
 
 }

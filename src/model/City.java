@@ -27,7 +27,8 @@ public class City {
         int distance = 0;
 
         for(Path path: paths) {
-            distance = path.getDistance() + (path.getDistance() * (r.nextInt(5) + 1)) / 10;
+            //yol uzunlukları %20 artırıldı
+            distance = path.getDistance() + (path.getDistance() * (2)) / 10;
             path.setDistance(distance);
         }
     }

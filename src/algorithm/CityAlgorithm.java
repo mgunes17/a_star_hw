@@ -41,8 +41,8 @@ public class CityAlgorithm {
         Random r = new Random();
 
         do {
-            x = r.nextInt(500);
-            y = r.nextInt(500);
+            x = r.nextInt(960) + 20; //pencere kenarında 20 pxlik boşluk bırakıldı
+            y = r.nextInt(660) + 20;
         } while(!isPossible(x, y));
 
         city.setX_coor(x);
@@ -58,7 +58,7 @@ public class CityAlgorithm {
         city.setY_coor(y);
 
         while(i < map.size() && isExist == false) {
-            if(eucledianDistance(map.get(i), city) < 10 )
+            if(eucledianDistance(map.get(i), city) < 50 )
                 isExist  = true;
             i++;
         }
@@ -93,6 +93,7 @@ public class CityAlgorithm {
     public List<City> generateRandomPath(int pathCount) {
         Random r = new Random();
         int city1, city2;
+        boolean adjacent;
 
         for(int i = 0; i < pathCount; i++) {
 
@@ -100,7 +101,9 @@ public class CityAlgorithm {
             do {
                 city1 = r.nextInt(cityCount);
                 city2 = r.nextInt(cityCount);
-            } while(city1 == city2);
+
+                adjacent = isAdjacent(map.get(city1) ,map.get(city2));
+            } while(city1 == city2 || adjacent == true);
 
             int distance = City.distanceMatrix[city1][city2];
             map.get(city1).getPaths().add(new Path(map.get(city2), distance));
@@ -108,6 +111,18 @@ public class CityAlgorithm {
         }
 
         return map;
+    }
+
+    public boolean isAdjacent(City c1, City c2) {
+        boolean adjacent = false;
+
+        for(Path path: c1.getPaths()) {
+            if(path.getAdjacent().getId() == c2.getId()) {
+                adjacent = true;
+            }
+        }
+
+        return adjacent;
     }
 
     public List<City> updatePaths() {
