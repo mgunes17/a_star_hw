@@ -76,6 +76,7 @@ public class AStar {
         executionInfo.setTotalPolledSize(polledCount);
         executionInfo.setMaxQueueSize(maxQueueSize);
         executionInfo.setTargetState(targetState);
+        executionInfo.setRemainQueue(stateQueue);
 
         return executionInfo;
     }
@@ -96,9 +97,5 @@ public class AStar {
         public int compare(State s1, State s2) {
             return s1.compareTo(s2);
         }
-    }
-
-    public int getPolledCount() {
-        return polledCount;
     }
 }

@@ -1,9 +1,10 @@
 package model;
 
-import java.util.Comparator;
-
 /**
  * Created by mgunes on 29.10.2016.
+ *
+ * Arama yaparken o an bulunduğumuz şehir ve uzaklık bilgilerini tutmak amacıyla
+ * kullanılan sınıf. Teorik olarak her şehir birden fazla state de bulunabilir
  */
 public class State implements Comparable<State> {
     private final City city;
@@ -33,10 +34,6 @@ public class State implements Comparable<State> {
     public void setCurrentCost(int currentCost) {
         this.currentCost = currentCost;
         setEstimatedCost();
-    }
-
-    public int getBeelineCost() {
-        return beelineCost;
     }
 
     public void setBeelineCost(int beelineCost) {

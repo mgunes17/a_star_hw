@@ -2,10 +2,10 @@ package algorithm;
 
 import model.City;
 import model.ExecutionInfo;
+import model.State;
 import view.AppWindow;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * Ana Akışın Yönetilmesinden Sorumlu Sınıf
  */
-public class App extends JFrame {
+public class App {
     private int cityCount;
     private int randomPathCount;
     private int startCity;
@@ -26,8 +26,7 @@ public class App extends JFrame {
 
         CityAlgorithm cityAlgorithm = new CityAlgorithm(app.cityCount);
 
-        List<City> map = new ArrayList<>();
-        map = cityAlgorithm.createCities();
+        List<City> map = cityAlgorithm.createCities();
 
         cityAlgorithm.evaluateDistances();
 
@@ -77,6 +76,17 @@ public class App extends JFrame {
         stringBuilder.append(executionInfo.getTotalPolledSize() + "\n");
         stringBuilder.append("Kuyruğun ulaştığı maximum boyut:");
         stringBuilder.append(executionInfo.getMaxQueueSize() + "\n");
+        stringBuilder.append("Kuyruğun son hali:\n");
+
+        int i = 0;
+        while(executionInfo.getRemainQueue().peek() != null) {
+            i++;
+            if(i % 17 == 0) {
+                stringBuilder.append("\n");
+            }
+            State s = executionInfo.getRemainQueue().poll();
+            stringBuilder.append(s.getCity().getId() + " ");
+        }
 
         JOptionPane.showMessageDialog(null, stringBuilder.toString());
     }
@@ -90,7 +100,7 @@ public class App extends JFrame {
                 String input = JOptionPane.showInputDialog(message);
                 inputNumber = Integer.parseInt(input);
 
-                if(inputNumber < 0 && inputNumber > 99) {
+                if(inputNumber < 0 || inputNumber > 100) {
                     JOptionPane.showMessageDialog(null, "Lütfen 0-99 aralığında giriş yapınız");
                     read = false;
                 } else {

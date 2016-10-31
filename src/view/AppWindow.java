@@ -1,18 +1,17 @@
 package view;
 
-import com.sun.deploy.panel.JavaPanel;
 import model.City;
 import model.Path;
 import model.State;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 
 /**
  * Created by mgunes on 26.10.2016.
+ *
+ * Görsel işlemlerin yapılmasını sağlayan sınıf
  */
 public class AppWindow extends JFrame {
     private List<City> cityList;
@@ -34,6 +33,7 @@ public class AppWindow extends JFrame {
 
         jp = new GPanel();
         getContentPane().add(jp);
+        setBackground(Color.PINK);
 
     }
 
@@ -41,7 +41,7 @@ public class AppWindow extends JFrame {
         this.way = way;
     }
 
-    class GPanel extends JPanel {
+    private class GPanel extends JPanel {
         public GPanel() {
             setPreferredSize(new Dimension(1000, 700));
         }
@@ -51,16 +51,19 @@ public class AppWindow extends JFrame {
             g.clearRect(0, 0, 500, 500);
 
             for(City city: cityList) { //her bir şehir için
-                g.setColor(Color.BLACK);
+                g.setColor(Color.DARK_GRAY);
                 g.drawOval(city.getX_coor(), city.getY_coor(), 5, 5);
                 g.fillOval(city.getX_coor(), city.getY_coor(), 5, 5);
 
                 for(Path path: city.getPaths()) {
+                    g.setColor(Color.GRAY);
                     g.drawLine(city.getX_coor(), city.getY_coor(),
                             path.getAdjacent().getX_coor(), path.getAdjacent().getY_coor()
                     );
-                    if(way == true) {
+                    if(way) {
+                        g.setColor(Color.BLUE);
                         g.drawString("" + city.getId(), city.getX_coor(), city.getY_coor());
+                        g.setColor(Color.BLACK);
                         g.drawString("" + path.getDistance(),
                                 (city.getX_coor() + path.getAdjacent().getX_coor()) / 2,
                                 (city.getY_coor() + path.getAdjacent().getY_coor()) / 2
@@ -70,7 +73,7 @@ public class AppWindow extends JFrame {
                 }
             }
 
-            if(astar == true) { //yol bulunduysa, renklendir
+            if(astar) { //yol bulunduysa, renklendir
                 State s  = target;
 
                 while(s.getPreviousState() != null) {
@@ -81,7 +84,7 @@ public class AppWindow extends JFrame {
                     s = s.getPreviousState();
                 }
             }
-            if(startCity != -1 && targetCity != -1) {
+            if(startCity != -1 && targetCity != -1) { //başlangıç ve bitiş şehirleri belirlendiyse işaretle
                 g.setColor(Color.BLUE);
                 g.drawOval(cityList.get(startCity).getX_coor(), cityList.get(startCity).getY_coor(), 15 , 15);
                 g.fillOval(cityList.get(startCity).getX_coor(), cityList.get(startCity).getY_coor(), 15 , 15);
@@ -93,40 +96,16 @@ public class AppWindow extends JFrame {
         }
     }
 
-    public List<City> getCityList() {
-        return cityList;
-    }
-
-    public void setCityList(List<City> cityList) {
-        this.cityList = cityList;
-    }
-
-    public boolean isAstar() {
-        return astar;
-    }
-
     public void setAstar(boolean astar) {
         this.astar = astar;
-    }
-
-    public State getTarget() {
-        return target;
     }
 
     public void setTarget(State target) {
         this.target = target;
     }
 
-    public int getTargetCity() {
-        return targetCity;
-    }
-
     public void setTargetCity(int targetCity) {
         this.targetCity = targetCity;
-    }
-
-    public int getStartCity() {
-        return startCity;
     }
 
     public void setStartCity(int startCity) {

@@ -13,11 +13,11 @@ public class ExecutionInfo {
     private long aStarExecutionTime;
     private int totalPolledSize;
     private int maxQueueSize;
-    private Queue remainQueue;
+    private Queue<State> remainQueue;
     private State targetState;
 
     public ExecutionInfo() {
-        remainQueue = new PriorityQueue<State>();
+        remainQueue = new PriorityQueue<>();
     }
 
     public long getaStarExecutionTime() {
@@ -44,11 +44,11 @@ public class ExecutionInfo {
         this.maxQueueSize = maxQueueSize;
     }
 
-    public Queue getRemainQueue() {
+    public Queue<State> getRemainQueue() {
         return remainQueue;
     }
 
-    public void setRemainQueue(Queue remainQueue) {
+    public void setRemainQueue(Queue<State> remainQueue) {
         this.remainQueue = remainQueue;
     }
 

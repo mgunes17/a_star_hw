@@ -6,14 +6,12 @@ import model.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.MatchResult;
-
-import static java.lang.Math.sqrt;
 
 /**
  * Created by mgunes on 26.10.2016.
  *
  * Şehir koordinatlarının ve yollarının üretilmesi işlemleri
+ * ve bunları ait kontrollerin yapılmasını içeren sınıf
  */
 public class CityAlgorithm {
     private int cityCount;
@@ -21,7 +19,7 @@ public class CityAlgorithm {
 
     public CityAlgorithm(int cityCount) {
         this.cityCount = cityCount;
-        map = new ArrayList<City>();
+        map = new ArrayList<>();
     }
 
     public List<City> createCities() {
@@ -57,13 +55,13 @@ public class CityAlgorithm {
         city.setX_coor(x);
         city.setY_coor(y);
 
-        while(i < map.size() && isExist == false) {
+        while(i < map.size() && !isExist) {
             if(eucledianDistance(map.get(i), city) < 50 )
                 isExist  = true;
             i++;
         }
 
-        if(isExist == true)
+        if(isExist)
             return false;
         else
             return true;
@@ -103,7 +101,7 @@ public class CityAlgorithm {
                 city2 = r.nextInt(cityCount);
 
                 adjacent = isAdjacent(map.get(city1) ,map.get(city2));
-            } while(city1 == city2 || adjacent == true);
+            } while(city1 == city2 || adjacent);
 
             int distance = City.distanceMatrix[city1][city2];
             map.get(city1).getPaths().add(new Path(map.get(city2), distance));
@@ -113,7 +111,7 @@ public class CityAlgorithm {
         return map;
     }
 
-    public boolean isAdjacent(City c1, City c2) {
+    private boolean isAdjacent(City c1, City c2) {
         boolean adjacent = false;
 
         for(Path path: c1.getPaths()) {

@@ -8,6 +8,9 @@ import java.util.List;
 
 /**
  * Created by mgunes on 26.10.2016.
+ *
+ * Minimum spanning tree yi elde etmek amacıyla
+ * uygulanan Prim algoritması
  */
 public class PrimS {
     //tree ye eklenen şehirler
@@ -16,13 +19,12 @@ public class PrimS {
 
     public PrimS(List<City> cityList) {
         super();
-        cityInGraph = new ArrayList<City>();
+        cityInGraph = new ArrayList<>();
         this.cityList = cityList;
     }
 
     public void minimumSpanningTree() {
         // Başlangıç noktası 0 id li şehir
-        int index = 0;
         int minPath = 9999;
         cityInGraph.add(cityList.get(0));
         int adj1 = -1;
@@ -46,14 +48,4 @@ public class PrimS {
             minPath = 9999;
         }
     }
-
-    /*
-
-        min bul fonksiyonu olacak,
-        cityInGraph taki listede olan şehirler arasında komşusu en küçük olan ve listede olmayan şehri bulup listeye
-        ekleyeceğiz ta ki bulunamayana kadar
-
-        burda şehirlerin pathlerine eklenecek
-     */
-
 }

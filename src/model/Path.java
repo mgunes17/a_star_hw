@@ -2,6 +2,8 @@ package model;
 
 /**
  * Created by mgunes on 26.10.2016.
+ *
+ * Yola ait bilgileri soyutlayan sınıf
  */
 public class Path {
     private City adjacent;
@@ -14,10 +16,6 @@ public class Path {
 
     public City getAdjacent() {
         return adjacent;
-    }
-
-    public void setAdjacent(City adjacent) {
-        this.adjacent = adjacent;
     }
 
     public int getDistance() {

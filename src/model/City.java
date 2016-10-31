@@ -1,30 +1,28 @@
 package model;
 
-import algorithm.CityAlgorithm;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by mgunes on 26.10.2016.
+ *
+ * Şehir bilgilerini soyutlayan sınıf
  */
 public class City {
-    public static int distanceMatrix[][] = new int[100][100];
-    private final int id;
+    public static int distanceMatrix[][] = new int[100][100]; //öklid distance ları tutan matris
+    private final int id; //her şehrin unique bir id si var
     private int x_coor;
     private int y_coor;
-    private List<Path> paths;
+    private List<Path> paths; //her şehrin sahip olduğu yollarla ilgili bilgiyi tutan liste
 
     public City(int id) {
         this.id = id;
-        paths = new ArrayList<Path>();
+        paths = new ArrayList<>();
     }
 
-    //tüm yollara %10 %50 aralığında ekleme yapar
+    //tüm yollara %20 ekleme yapar
     public void findRealPath() {
-        Random r = new Random();
-        int distance = 0;
+        int distance ;
 
         for(Path path: paths) {
             //yol uzunlukları %20 artırıldı
@@ -56,10 +54,6 @@ public class City {
 
     public List<Path> getPaths() {
         return paths;
-    }
-
-    public void setPaths(List<Path> paths) {
-        this.paths = paths;
     }
 
 }
